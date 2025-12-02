@@ -1,0 +1,557 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080810;
+  --bg-elevated: #141420;
+  --bg-elevated-soft: #181828;
+  --accent: #01b185;
+  --accent-soft: rgba(255, 95, 209, 0.2);
+  --text: #f5f5f5;
+  --text-muted: #a3a3b8;
+  --border-subtle: #25253a;
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #202040 0, #05050b 55%, #000 100%);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.app {
+  width: 100%;
+  max-width: 780px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent);
+  border-radius: 28px;
+  padding: 24px 20px 28px;
+  border: 1px solid rgba(255, 243, 150, 0.161);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(22px);
+}
+
+.app-header {
+  margin-bottom: 18px;
+}
+
+.app-header h1 {
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+  letter-spacing: 0.03em;
+}
+
+.app-header p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.search-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  max-width: 460px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: rgba(7, 7, 18, 0.95);
+  padding: 6px 12px;
+  color: var(--text);
+  outline: none;
+  font-size: 0.85rem;
+}
+
+.search-input::placeholder {
+  color: rgba(163, 163, 184, 0.8);
+}
+
+button {
+  font: inherit;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: rgba(15, 15, 30, 0.9);
+  padding: 6px 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+button:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+/* list */
+.album-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.album-item {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg-elevated-soft));
+  padding: 10px 14px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 8px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
+  cursor: grab;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.1s ease,
+    border-color 0.1s ease,
+    background 0.1s ease;
+}
+
+.album-item.sortable-chosen {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0);
+  border-color: var(--accent);
+}
+
+.album-item.sortable-ghost {
+  opacity: 0.4;
+}
+
+.rank {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  background: radial-gradient(circle at 30% 20%, #bbd286, #fff481 40%, #e6fe6e 100%);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0);
+}
+
+.rank {
+  color: #000;        /* black text */
+  /* keep whatever you already have here (size, flex, etc.) */
+}
+
+
+/* cover */
+.cover {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #202030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover-placeholder {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* info */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+
+.artist {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artist .placeholder {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* actions */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-button {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 3px 7px;
+  font-size: 0.75rem;
+  line-height: 1;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.icon-button:hover {
+  border-color: rgba(178, 178, 178, 0.7);
+  background: rgba(255, 80, 80, 0.08);
+  color: #ffb5b5;
+}
+
+.handle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  padding-left: 4px;
+}
+
+.save-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Make buttons and the select visually consistent */
+.save-panel button,
+.save-panel .saved-lists {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;        /* pill / rounded – match your style */
+  border: 1px solid #e8ff8b;      /* adjust to match your buttons */
+  background: #202030;         /* adjust */
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  color: #f1f1f1;
+  box-shadow: #05050b00 0 2px 24px;
+}
+
+/* Remove the default ugly select styling */
+.save-panel .saved-lists {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-position: right 0.7rem center;
+  background-repeat: no-repeat;
+  padding-right: 2rem; /* space for the arrow */
+}
+
+/* Simple custom arrow using a gradient (optional, but nice) */
+.save-panel .saved-lists {
+  background-image:
+    linear-gradient(45deg, transparent 50%, #666 50%),
+    linear-gradient(135deg, #666 50%, transparent 50%);
+  background-size: 6px 6px, 6px 6px;
+  background-position:
+    calc(100% - 12px) 50%,
+    calc(100% - 6px) 50%;
+}
+
+/* Hover / active states */
+.save-panel button:hover,
+.save-panel .saved-lists:hover {
+  background: #d9d5e8;
+  color: #202030;;
+}
+
+.save-panel button:active,
+.save-panel .saved-lists:active {
+  background: #989898;
+}
+
+.save-panel button:focus-visible,
+.save-panel .saved-lists:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.current-list-name {
+   margin-top: 2rem;
+   margin-bottom: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+}
+
+
+/* responsive */
+@media (max-width: 600px) {
+  .app {
+    padding: 18px 14px 22px;
+    border-radius: 20px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-group {
+    width: 100%;
+  }
+
+  .album-item {
+    grid-template-columns: auto auto 1fr auto;
+    padding: 8px 10px;
+  }
+
+  .rank {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .cover {
+    width: 56px;
+    height: 56px;
+  }
+
+  .title {
+    font-size: 0.9rem;
+  }
+
+  .artist {
+    font-size: 0.75rem;
+  }
+}
+.search-group {
+  position: relative; /* so dropdown can sit under the input */
+}
+
+/* Container for results */
+.search-results {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  background: #111;
+  border: 1px solid #444;
+  border-radius: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 20;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0);
+}
+
+/* Each result row */
+.search-result-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-result-item:hover {
+  background: #222;
+}
+
+/* Title / artist text styling */
+.search-result-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.search-result-meta {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* For “no results” or loading messages */
+.search-results-empty {
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+/* Utility */
+.hidden {
+  display: none;
+}
+
+/* Whole panel */
+.search-results-panel {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0);
+}
+
+/* Top row: title + count + clear button */
+.search-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.search-results-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.search-results-count {
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+
+/* "Clear" button to hide results */
+.search-results-clear {
+  font-size: 0.75rem;
+  border: 1px solid #555;
+  background: transparent;
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.search-results-clear:hover {
+  background: #222;
+}
+
+/* List of results */
+.search-results-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual result */
+.search-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid #222;
+}
+
+.search-result-item:first-child {
+  border-top: none;
+}
+
+/* Text block */
+.search-result-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.search-result-meta {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Small "add" button on the right */
+.search-result-add-btn {
+  font-size: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #666;
+  background: #181818;
+  padding: 4px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search-result-add-btn:hover {
+  background: #252525;
+}
+
+/* Empty / info message */
+.search-results-empty {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  padding-top: 4px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #222;
+}
+
+.search-result-cover img {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.search-result-cover-placeholder {
+  width: 45px;
+  height: 45px;
+  border-radius: 6px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  opacity: 0.7;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Album Rankings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <h1>Album Rankings</h1>
+        <p>Drag to reorder the albums. Your ranking is saved in this browser.</p>
+      </header>
+
+      <main>
+        <div class="toolbar">
+          <div class="search-group">
+  <input
+    id="search-input"
+    class="search-input"
+    type="text"
+    placeholder="Search for an album..."
+  />
+  <button id="search-btn">Add album</button>
+
+  <!-- NEW: dropdown container -->
+  <div id="search-results" class="search-results hidden"></div>
+</div>
+
+
+          
+        </div>
+
+  <div class="save-panel">
+  
+  <button id="save-list">Save ranking</button>
+  <button id="new-list">New list</button>
+
+
+  <select id="saved-lists" class="saved-lists"></select>
+  <button id="delete-list">Delete</button>
+</div>
+
+<div id="current-list-name" class="current-list-name"><h2></h2>(unsaved list)</div>
+
+<!-- Search results panel -->
+<section id="search-results-panel" class="search-results-panel hidden"></section>
+
+  <!-- Filled by JS -->
+</section>
+
+
+        <ul id="album-list" class="album-list"></ul>
+      </main>
+    </div>
+
+    <!-- Search Result Modal (needed by script.js) -->
+    <div id="search-modal" class="modal-overlay" style="display:none;">
+      <div class="modal-window">
+        <h2 class="modal-title">Select the correct album</h2>
+        <div id="modal-results" class="modal-results"></div>
+        <button id="modal-custom" class="modal-custom">
+          None of these – add custom
+        </button>
+        <button id="modal-close" class="modal-close">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- SortableJS for drag-and-drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -423,7 +423,6 @@ function getInitialOrder() {
 
 
 // -------- Saved list system --------
-// (unchanged — your full logic preserved)
 
 function loadSavedListsFromStorage() {
   const raw = localStorage.getItem(STORAGE_KEYS.savedLists);
@@ -572,7 +571,6 @@ function renderSearchResults(results, queryText = "") {
 
   searchResultsPanel.innerHTML = "";
 
-
   if (!results || results.length === 0) {
     searchResultsPanel.innerHTML = `
       <div class="search-results-header">
@@ -645,72 +643,67 @@ function renderSearchResults(results, queryText = "") {
 
   const clearBtn = document.getElementById("clear-search-results");
   clearBtn.onclick = () => {
-  searchResultsPanel.innerHTML = "";
-  searchResultsPanel.classList.add("hidden");
-};
-
+    searchResultsPanel.innerHTML = "";
+    searchResultsPanel.classList.add("hidden");
+  };
 }
 
 
-// -------- MusicBrainz Search --------
-const MB_BASE =
-  "https://corsproxy.io/?https://musicbrainz.org/ws/2/release-group/";
-const CAA_BASE =
-  "https://corsproxy.io/?https://coverartarchive.org/release-group/";
+// -------- Album Search via iTunes API --------
 
-async function fetchCoverArt(mbid) {
-  if (!mbid) return null;
-  const url = `${CAA_BASE}${mbid}/front-250`;
-
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    return url;
-  } catch {
-    return null;
-  }
-}
+const ITUNES_BASE = "https://itunes.apple.com/search";
 
 async function searchAlbums(query) {
-  const url = `${MB_BASE}?query=${encodeURIComponent(query)}&fmt=json&type=album&limit=8`;
+  const url =
+    `${ITUNES_BASE}?media=music&entity=album&limit=8&term=` +
+    encodeURIComponent(query);
 
   try {
     const res = await fetch(url);
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error("iTunes API error:", res.status);
+      return [];
+    }
 
     const data = await res.json();
-    const groups = data["release-groups"] || [];
+    const items = data.results || [];
 
-    if (groups.length === 0) {
+    if (items.length === 0) {
+      // Fallback: allow creating a custom album with no cover
       return [
         {
           id: `custom-${Date.now()}`,
-          mbid: null,
           title: query,
           artist: "",
           year: "",
+          cover: null,
           isCustom: true
         }
       ];
     }
 
-    return groups.map(g => ({
-      id: `mb-${g.id}`,
-      mbid: g.id,
-      title: g.title || "Untitled",
-      artist:
-        g["artist-credit"] &&
-        g["artist-credit"][0] &&
-        g["artist-credit"][0].name
-          ? g["artist-credit"][0].name
-          : "",
-      year: g["first-release-date"]
-        ? g["first-release-date"].slice(0, 4)
-        : "",
-      isCustom: false
-    }));
+    return items.map(item => {
+      const year = item.releaseDate
+        ? new Date(item.releaseDate).getFullYear()
+        : "";
+
+      // Upgrade 100x100 art to 600x600 if possible
+      let cover = item.artworkUrl100 || null;
+      if (cover) {
+        cover = cover.replace("100x100", "600x600");
+      }
+
+      return {
+        id: `itunes-${item.collectionId}`,
+        title: item.collectionName || "Untitled",
+        artist: item.artistName || "",
+        year,
+        cover,
+        isCustom: false
+      };
+    });
   } catch (err) {
-    console.error(err);
+    console.error("searchAlbums error:", err);
     return [];
   }
 }
@@ -721,7 +714,7 @@ async function addAlbumFromSearch(result) {
   const id = result.id;
 
   if (!albumMap.has(id)) {
-    const cover = result.mbid ? await fetchCoverArt(result.mbid) : null;
+    const cover = result.cover || null;
 
     const newAlbum = {
       id,

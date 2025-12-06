@@ -1,3 +1,33 @@
+// ---------- Firebase imports ----------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+// ---------- Your Firebase config (from Firebase console) ----------
+const firebaseConfig = {
+  apiKey: "AIzaSyC0ju2YukSOZIYs_Nk1SdGw4T5s94RbgAU",
+  authDomain: "album-ranking-1998.firebaseapp.com",
+  projectId: "album-ranking-1998",
+  storageBucket: "album-ranking-1998.firebasestorage.app",
+  messagingSenderId: "1091259278270",
+  appId: "1:1091259278270:web:796b9148c1b6839a850fef",
+  measurementId: "G-9QQQ6VR5M0"
+};
+
+// ---------- Init Firebase ----------
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// We’ll store everything in one document:
+// Collection: "albumRanking"
+// Document:  "globalState"
+const stateDocRef = doc(db, "albumRanking", "globalState");
+
+
 // 2025 Album Ranking
 
 // -------- Seed data --------
@@ -362,12 +392,9 @@ const defaultAlbums = [
 ];
 
 // Automatically attach local cover images based on each album's id.
-// Make sure you have files like /images/<id>.jpg as listed above.
 defaultAlbums.forEach(album => {
   album.cover = `images/${album.id}.jpg`;
 });
-
-
 
 // -------- Storage keys --------
 const STORAGE_KEYS = {
@@ -377,20 +404,16 @@ const STORAGE_KEYS = {
 const STORAGE_KEY_ORDER = "albumOrder2025-v1";
 const STORAGE_KEY_ALBUMS = "albums2025-data-v1";
 
-
 // -------- DOM --------
 const listEl = document.getElementById("album-list");
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 const searchResultsPanel = document.getElementById("search-results-panel");
 
-
 // -------- State --------
 // We always use the built-in list; no albums from localStorage
 let albums = defaultAlbums.slice();
 let albumMap = new Map(albums.map(a => [a.id, a]));
-
-
 
 // -------- Utilities --------
 function escapeHtml(str) {
@@ -401,7 +424,6 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
-
 
 // -------- Render Ranking --------
 function render(order) {
@@ -480,7 +502,6 @@ function render(order) {
   });
 }
 
-
 // -------- Order storage --------
 function saveCurrentOrder() {
   const ids = Array.from(listEl.children).map(li => li.dataset.id);
@@ -507,9 +528,7 @@ function getInitialOrder() {
   }
 }
 
-
 // -------- Saved list system --------
-
 function loadSavedListsFromStorage() {
   const raw = localStorage.getItem(STORAGE_KEYS.savedLists);
   if (!raw) return [];
@@ -569,6 +588,7 @@ function autosaveCurrentList() {
     lists[idx].name = currentListName.trim();
     saveSavedListsToStorage(lists);
     refreshSavedListsDropdown();
+    saveToCloud(); // 🔄 also sync to Firebase
   }
 }
 
@@ -607,6 +627,7 @@ function handleSaveList() {
   updateCurrentListNameDisplay();
   saveSavedListsToStorage(lists);
   refreshSavedListsDropdown();
+  saveToCloud(); // 🔄 sync to Firebase
 }
 
 function handleLoadList() {
@@ -625,6 +646,7 @@ function handleLoadList() {
   render(chosen.order);
   localStorage.setItem(STORAGE_KEY_ORDER, JSON.stringify(chosen.order));
   updateCurrentListNameDisplay();
+  saveToCloud(); // 🔄 sync to Firebase
 }
 
 function handleDeleteList() {
@@ -644,11 +666,93 @@ function handleDeleteList() {
   }
 
   refreshSavedListsDropdown();
+  saveToCloud(); // 🔄 sync to Firebase
 }
 
+// -------- Cloud sync (Firebase) --------
+function buildCloudState() {
+  const lists = loadSavedListsFromStorage();
+  const order = Array.from(listEl.children).map(li => li.dataset.id);
+
+  return {
+    albums,
+    lists,
+    currentListId,
+    currentListName,
+    order
+  };
+}
+
+function applyCloudState(data) {
+  if (!data) return;
+
+  // Albums (including ones added via search)
+  if (Array.isArray(data.albums) && data.albums.length) {
+    albums = data.albums;
+    albumMap = new Map(albums.map(a => [a.id, a]));
+  }
+
+  // Saved lists
+  if (Array.isArray(data.lists)) {
+    saveSavedListsToStorage(data.lists);
+  }
+
+  if (typeof data.currentListId === "string") {
+    currentListId = data.currentListId;
+  }
+
+  if (typeof data.currentListName === "string") {
+    currentListName = data.currentListName;
+  }
+
+  let order = Array.isArray(data.order) ? data.order : null;
+
+  // Fallback: get order from the active list
+  if (!order || !order.length) {
+    if (currentListId) {
+      const lists = loadSavedListsFromStorage();
+      const chosen = lists.find(l => l.id === currentListId);
+      if (chosen && Array.isArray(chosen.order)) {
+        order = chosen.order;
+      }
+    }
+  }
+
+  // Final fallback: default logic
+  if (!order || !order.length) {
+    order = getInitialOrder();
+  }
+
+  render(order);
+  localStorage.setItem(STORAGE_KEY_ORDER, JSON.stringify(order));
+  refreshSavedListsDropdown();
+  updateCurrentListNameDisplay();
+}
+
+async function saveToCloud() {
+  try {
+    const state = buildCloudState();
+    await setDoc(stateDocRef, state);
+  } catch (err) {
+    console.error("Error saving to cloud:", err);
+  }
+}
+
+async function loadFromCloud() {
+  try {
+    const snap = await getDoc(stateDocRef);
+    if (snap.exists()) {
+      applyCloudState(snap.data());
+    } else {
+      // No cloud data yet: create it from current local state
+      await saveToCloud();
+    }
+  } catch (err) {
+    console.error("Error loading from cloud:", err);
+  }
+}
 
 // -------- Search Results Panel --------
-
 function renderSearchResults(results, queryText = "") {
   if (!searchResultsPanel) return;
 
@@ -734,9 +838,7 @@ function renderSearchResults(results, queryText = "") {
   };
 }
 
-
 // -------- Album Search via iTunes API --------
-
 const ITUNES_BASE = "https://itunes.apple.com/search";
 
 async function searchAlbums(query) {
@@ -821,8 +923,8 @@ async function addAlbumFromSearch(result) {
   render(newOrder);
   saveCurrentOrder();
   autosaveCurrentList();
+  saveToCloud(); // 🔄 sync to Firebase
 }
-
 
 // -------- Search Logic --------
 async function handleSearch() {
@@ -848,7 +950,6 @@ searchInput.addEventListener("keydown", e => {
   }
 });
 
-
 // -------- Remove album --------
 listEl.addEventListener("click", e => {
   const btn = e.target.closest(".remove-btn");
@@ -864,8 +965,8 @@ listEl.addEventListener("click", e => {
   render(remaining);
   saveCurrentOrder();
   autosaveCurrentList();
+  saveToCloud(); // 🔄 sync to Firebase
 });
-
 
 // -------- List Buttons --------
 const saveListBtn = document.getElementById("save-list");
@@ -907,9 +1008,8 @@ if (newListBtn)
 
     updateCurrentListNameDisplay();
     refreshSavedListsDropdown();
+    saveToCloud(); // 🔄 sync to Firebase
   });
-
-
 
 // -------- Init --------
 const initialOrder = getInitialOrder();
@@ -917,6 +1017,7 @@ render(initialOrder);
 refreshSavedListsDropdown();
 updateCurrentListNameDisplay();
 
+// SortableJS drag & drop
 new Sortable(listEl, {
   animation: 150,
 
@@ -925,14 +1026,14 @@ new Sortable(listEl, {
   delayOnTouchOnly: true,   // only on touch, not on mouse
   touchStartThreshold: 5,   // allow a few px movement before dragging
 
-  // 🔑 Force JS fallback so iOS doesn't show its own drag screenshot
+  // Force JS fallback so iOS doesn't show its own drag screenshot
   forceFallback: true,
   fallbackOnBody: true,
   swapThreshold: 0.5,
 
-  // We use Sortable's built-in classes:
-  //  - .sortable-chosen  (real item)
-  //  - .sortable-ghost   (clone placeholder)
+  // We use Sortable's default classes:
+  //   .sortable-chosen  = REAL item being dragged
+  //   .sortable-ghost   = placeholder clone in the list
 
   onStart() {
     document.body.classList.add("is-dragging");
@@ -942,10 +1043,9 @@ new Sortable(listEl, {
     updateRankNumbers();
     saveCurrentOrder();
     autosaveCurrentList();
+    saveToCloud(); // 🔄 sync to Firebase
   }
 });
 
-
-
-
-
+// Load cloud state (will overwrite local once ready)
+loadFromCloud();

@@ -555,3 +555,75 @@ button:hover {
   font-size: 20px;
   opacity: 0.7;
 }
+
+/* Make the drag handle easier to grab, especially on mobile */
+.handle {
+  cursor: grab;
+  touch-action: none;        /* prevent conflicting gestures on the handle */
+  padding: 0.5rem 0.4rem;
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* When actually dragging */
+.drag-dragging .handle,
+.album-item.drag-chosen .handle {
+  cursor: grabbing;
+}
+
+/* Ghost element that follows your finger */
+.drag-ghost {
+  opacity: 0.9;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Slight highlight on the picked-up item */
+.drag-chosen {
+  opacity: 0.95;
+}
+
+/* While dragging, reduce weird scrolling behavior */
+body.is-dragging {
+  touch-action: none;            /* disable swipe/scroll while dragging */
+  overscroll-behavior: contain;
+}
+
+/* Optional: make rows a bit finger-friendly on small screens */
+@media (max-width: 600px) {
+  .album-item {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .cover {
+    width: 44px;
+    height: 44px;
+  }
+
+  .title {
+    font-size: 0.9rem;
+  }
+
+  .artist {
+    font-size: 0.8rem;
+  }
+
+  .rank {
+    min-width: 26px;
+  }
+}
+
+.album-item {
+  cursor: grab;
+}
+
+.album-item.drag-chosen,
+.album-item.drag-dragging {
+  cursor: grabbing;
+}
+
+/* While dragging, prevent weird scrolling */
+body.is-dragging {
+  touch-action: none;
+  overscroll-behavior: contain;
+}

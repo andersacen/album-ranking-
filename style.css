@@ -587,3 +587,9 @@ body.is-dragging {
   touch-action: none;
   overscroll-behavior: contain;
 }
+/* Prevent text from being highlighted while dragging */
+.album-item,
+.album-item * {
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+}

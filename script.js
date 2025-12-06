@@ -920,18 +920,19 @@ updateCurrentListNameDisplay();
 new Sortable(listEl, {
   animation: 150,
 
-  // 👉 Make touch drag feel less “twitchy”
+  // Make touch drag feel less “twitchy”
   delay: 120,               // wait 120ms before drag starts
   delayOnTouchOnly: true,   // only on touch, not on mouse
   touchStartThreshold: 5,   // allow a few px movement before dragging
 
-  // 👉 Make fallback dragging smoother on some mobile browsers
+  // Make fallback dragging smoother on some mobile browsers
   fallbackOnBody: true,
   swapThreshold: 0.5,
 
-  ghostClass: "drag-ghost",
-  chosenClass: "drag-chosen",
-  dragClass: "drag-dragging",
+  // NOTE: we are NOT setting ghostClass/chosenClass/dragClass here.
+  // We just use Sortable's built-in classes:
+  //  - .sortable-chosen  (real item)
+  //  - .sortable-ghost   (clone)
 
   onStart() {
     document.body.classList.add("is-dragging");
@@ -943,5 +944,6 @@ new Sortable(listEl, {
     autosaveCurrentList();
   }
 });
+
 
 

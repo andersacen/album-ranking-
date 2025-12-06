@@ -251,7 +251,7 @@ button:hover {
 .icon-button:hover {
   border-color: rgba(178, 178, 178, 0.7);
   background: rgba(255, 80, 80, 0.08);
-  color: #ffb5b5;
+  color: #1f7c52;
 }
 
 .handle {
@@ -272,7 +272,7 @@ button:hover {
 .save-panel .saved-lists {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid #552f14;
+  border: 1px solid #6c6e0f;
   background: #202030;
   font-size: 0.9rem;
   font-family: inherit;
@@ -570,7 +570,7 @@ body.is-dragging {
 
 /* REAL moving card – must always be visible */
 .album-item.sortable-chosen {
-  opacity: 1 !important;
+  opacity: 0 !important;
   transform: scale(1.02);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   border-color: var(--accent);
@@ -578,8 +578,8 @@ body.is-dragging {
 
 /* Ghost / placeholder clone – must be invisible */
 .album-item.sortable-ghost {
-  opacity: 0 !important;     /* hide it completely */
-  visibility: hidden !important;
+  opacity: 1 !important;     /* hide it completely */
+  visibility: visible !important;
 }
 
 /* While dragging, avoid scroll jank on mobile */

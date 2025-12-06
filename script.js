@@ -386,26 +386,10 @@ const searchResultsPanel = document.getElementById("search-results-panel");
 
 
 // -------- State --------
-function loadAlbums() {
-  const raw = localStorage.getItem(STORAGE_KEY_ALBUMS);
-  if (!raw) return defaultAlbums.slice();
-  try {
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return defaultAlbums.slice();
-    return parsed.map(a => ({
-      id: a.id,
-      title: a.title || "",
-      artist: a.artist || "",
-      year: a.year || "",
-      cover: a.cover || null
-    }));
-  } catch {
-    return defaultAlbums.slice();
-  }
-}
-
-let albums = loadAlbums();
+// We always use the built-in list; no albums from localStorage
+let albums = defaultAlbums.slice();
 let albumMap = new Map(albums.map(a => [a.id, a]));
+
 
 
 // -------- Utilities --------

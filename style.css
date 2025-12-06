@@ -272,7 +272,7 @@ button:hover {
 .save-panel .saved-lists {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid #3c1455;
+  border: 1px solid #552f14;
   background: #202030;
   font-size: 0.9rem;
   font-family: inherit;
@@ -561,6 +561,28 @@ button:hover {
 
 
 /* While dragging, prevent weird scrolling */
+body.is-dragging {
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+
+/* --- Drag behaviour overrides (keep at very bottom) --- */
+
+/* REAL moving card – must always be visible */
+.album-item.sortable-chosen {
+  opacity: 1 !important;
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border-color: var(--accent);
+}
+
+/* Ghost / placeholder clone – must be invisible */
+.album-item.sortable-ghost {
+  opacity: 0 !important;     /* hide it completely */
+  visibility: hidden !important;
+}
+
+/* While dragging, avoid scroll jank on mobile */
 body.is-dragging {
   touch-action: none;
   overscroll-behavior: contain;

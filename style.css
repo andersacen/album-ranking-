@@ -145,6 +145,7 @@ button:hover {
     background 0.1s ease;
 }
 
+/* default Sortable classes (still fine to keep) */
 .album-item.sortable-chosen {
   transform: translateY(-1px) scale(1.01);
   box-shadow: 0 18px 30px rgba(0, 0, 0, 0);
@@ -171,9 +172,7 @@ button:hover {
 
 .rank {
   color: #000;        /* black text */
-  /* keep whatever you already have here (size, flex, etc.) */
 }
-
 
 /* cover */
 .cover {
@@ -270,9 +269,9 @@ button:hover {
 .save-panel button,
 .save-panel .saved-lists {
   padding: 0.4rem 0.9rem;
-  border-radius: 999px;        /* pill / rounded – match your style */
-  border: 1px solid #ff8b8b;      /* adjust to match your buttons */
-  background: #202030;         /* adjust */
+  border-radius: 999px;
+  border: 1px solid #95ff8b;
+  background: #202030;
   font-size: 0.9rem;
   font-family: inherit;
   cursor: pointer;
@@ -305,7 +304,7 @@ button:hover {
 .save-panel button:hover,
 .save-panel .saved-lists:hover {
   background: #d9d5e8;
-  color: #202030;;
+  color: #202030;
 }
 
 .save-panel button:active,
@@ -320,13 +319,12 @@ button:hover {
 }
 
 .current-list-name {
-   margin-top: 2rem;
-   margin-bottom: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   font-size: 1.6rem;
   font-weight: bold;
   letter-spacing: 0.03em;
 }
-
 
 /* responsive */
 @media (max-width: 600px) {
@@ -368,6 +366,7 @@ button:hover {
     font-size: 0.75rem;
   }
 }
+
 .search-group {
   position: relative; /* so dropdown can sit under the input */
 }
@@ -462,6 +461,7 @@ button:hover {
   padding: 4px 10px;
   cursor: pointer;
 }
+
 .search-results-clear:hover {
   background: #222;
 }
@@ -556,23 +556,21 @@ button:hover {
   opacity: 0.7;
 }
 
-/* Ghost element that follows your finger */
-.drag-ghost {
+/* --- Drag behaviour tuning --- */
+
+/* Keep the REAL item (chosen) visible and highlighted */
+.drag-chosen {
   opacity: 1;
   transform: scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* Hide the original while dragging so you don't see a duplicate */
-.drag-chosen {
+/* Hide the ghost clone so you don't see a duplicate */
+.drag-ghost {
   opacity: 0;
 }
 
 /* Optional: cursor changes */
-.album-item {
-  cursor: grab;
-}
-
 .album-item.drag-dragging {
   cursor: grabbing;
 }

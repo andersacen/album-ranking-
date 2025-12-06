@@ -2,269 +2,371 @@
 
 // -------- Seed data --------
 const defaultAlbums = [
-  { id: "eusexua", title: "Eusexua", artist: "FKA twigs", year: 2025 },
-  { id: "lux", title: "LUX", artist: "ROSALÍA", year: 2025 },
-  { id: "mayhem", title: "Mayhem", artist: "Lady Gaga", year: 2025 },
   {
-    id: "for-melancholy-brunette",
-    title: "For Melancholy Brunette",
-    artist: "Japanese Breakfast",
-    year: 2025
+    id: "eusexua",
+    title: "Eusexua",
+    artist: "FKA twigs",
+    year: 2025,
+    image: "images/eusexua.jpg"
   },
-  { id: "glory", title: "Glory", artist: "Perfume Genius", year: 2025 },
+  {
+    id: "lux",
+    title: "LUX",
+    artist: "Rosalía",
+    year: 2025,
+    image: "images/lux.jpg"
+  },
+  {
+    id: "mayhem",
+    title: "Mayhem",
+    artist: "Lady Gaga",
+    year: 2025,
+    image: "images/mayhem.jpg"
+  },
+  {
+    id: "for-melancholy-brunettes",
+    title: "For Melancholy Brunettes",
+    artist: "Japanese Breakfast",
+    year: 2025,
+    image: "images/for-melancholy-brunettes.jpg"
+  },
+  {
+    id: "glory",
+    title: "Glory",
+    artist: "Perfume Genius",
+    year: 2025,
+    image: "images/glory.jpg"
+  },
   {
     id: "sincerely",
     title: "Sincerely,",
     artist: "Kali Uchis",
-    year: 2025
+    year: 2025,
+    image: "images/sincerely.jpg"
   },
-  { id: "virgin", title: "Virgin", artist: "Lorde", year: 2025 },
+  {
+    id: "virgin",
+    title: "Virgin",
+    artist: "Lorde",
+    year: 2025,
+    image: "images/virgin.jpg"
+  },
   {
     id: "moisturizer",
     title: "Moisturizer",
     artist: "Wet Leg",
-    year: 2025
+    year: 2025,
+    image: "images/moisturizer.jpg"
   },
   {
     id: "sable-fable",
     title: "Sable, Fable",
     artist: "Bon Iver",
-    year: 2025
+    year: 2025,
+    image: "images/sable-fable.jpg"
   },
   {
     id: "fancy-that",
     title: "Fancy That",
     artist: "PinkPantheress",
-    year: 2025
+    year: 2025,
+    image: "images/fancy-that.jpg"
   },
   {
     id: "choke-enough",
     title: "Choke Enough",
     artist: "Oklou",
-    year: 2025
+    year: 2025,
+    image: "images/choke-enough.jpg"
   },
   {
     id: "euro-country",
     title: "Euro-Country",
-    artist: "Cmat",
-    year: 2025
+    artist: "CMAT",
+    year: 2025,
+    image: "images/euro-country.jpg"
   },
   {
-    id: "thats-showbiz-baby",
+    id: "that-s-showbiz-baby",
     title: "That’s Showbiz Baby!",
     artist: "JADE",
-    year: 2025
+    year: 2025,
+    image: "images/that-s-showbiz-baby.jpg"
   },
   {
     id: "the-clearing",
     title: "The Clearing",
     artist: "Wolf Alice",
-    year: 2025
+    year: 2025,
+    image: "images/the-clearing.jpg"
   },
   {
-    id: "willoughby-tucker-ill-always-love-you",
+    id: "willoughby-tucker-i-ll-always-love-you",
     title: "Willoughby Tucker, I’ll Always Love You",
     artist: "Ethel Cain",
-    year: 2025
+    year: 2025,
+    image: "images/willoughby-tucker-i-ll-always-love-you.jpg"
   },
-  { id: "addison", title: "Addison", artist: "", year: 2025 },
+  {
+    id: "addison",
+    title: "Addison",
+    artist: "Addison Rae",
+    year: 2025,
+    image: "images/addison.jpg"
+  },
   {
     id: "never-enough",
     title: "Never Enough",
     artist: "Turnstile",
-    year: 2025
+    year: 2025,
+    image: "images/never-enough.jpg"
   },
-  { id: "saya", title: "SAYA", artist: "", year: 2025 },
+  {
+    id: "saya",
+    title: "SAYA",
+    artist: "Saya Grey",
+    year: 2025,
+    image: "images/saya.jpg"
+  },
   {
     id: "west-end-girl",
     title: "West End Girl",
     artist: "Lily Allen",
-    year: 2025
+    year: 2025,
+    image: "images/west-end-girl.jpg"
   },
   {
     id: "black-star",
     title: "Black Star",
     artist: "Amaarae",
-    year: 2025
+    year: 2025,
+    image: "images/black-star.jpg"
   },
-  { id: "i-quit", title: "I Quit", artist: "", year: 2025 },
   {
-    id: "mans-best-friend",
+    id: "i-quit",
+    title: "I Quit",
+    artist: "HAIM",
+    year: 2025,
+    image: "images/i-quit.jpg"
+  },
+  {
+    id: "man-s-best-friend",
     title: "Man’s Best Friend",
     artist: "Sabrina Carpenter",
-    year: 2025
+    year: 2025,
+    image: "images/man-s-best-friend.jpg"
   },
   {
     id: "ego-death-at-a-bachelorette-party",
     title: "Ego Death At A Bachelorette Party",
     artist: "Hayley Williams",
-    year: 2025
+    year: 2025,
+    image: "images/ego-death-at-a-bachelorette-party.jpg"
   },
   {
     id: "a-matter-of-time",
     title: "A Matter Of Time",
     artist: "Laufey",
-    year: 2025
+    year: 2025,
+    image: "images/a-matter-of-time.jpg"
   },
   {
     id: "portrait-of-my-heart",
     title: "Portrait of My Heart",
     artist: "Spellling",
-    year: 2025
+    year: 2025,
+    image: "images/portrait-of-my-heart.jpg"
   },
   {
     id: "louder-please",
-    title: "Louder Please",
-    artist: "Rose Gray",
-    year: 2025
+    title: "Louder, Please",
+    artist: "Rose Grey",
+    year: 2025,
+    image: "images/louder-please.jpg"
   },
   {
     id: "debi-tirar-mas-fotos",
     title: "Debi Tirar Mas Fotos",
     artist: "Bad Bunny",
-    year: 2025
+    year: 2025,
+    image: "images/debi-tirar-mas-fotos.jpg"
   },
   {
     id: "iconoclasts",
     title: "Iconoclasts",
     artist: "Anna von Hausswolff",
-    year: 2025
+    year: 2025,
+    image: "images/iconoclasts.jpg"
   },
-  { id: "ruby", title: "Ruby", artist: "", year: 2025 },
+  {
+    id: "ruby",
+    title: "Ruby",
+    artist: "Jennie",
+    year: 2025,
+    image: "images/ruby.jpg"
+  },
   {
     id: "big-city-life",
     title: "Big City Life",
     artist: "Smerz",
-    year: 2025
+    year: 2025,
+    image: "images/big-city-life.jpg"
   },
   {
     id: "the-art-of-loving",
-    title: "The Art of Loving",
-    artist: "Olivia Dean",
-    year: 2025
+    title: "The Art Of Loving",
+    artist: "Oliva Dean",
+    year: 2025,
+    image: "images/the-art-of-loving.jpg"
   },
-  { id: "tether", title: "Tether", artist: "Anastasia", year: 2025 },
+  {
+    id: "tether",
+    title: "Tether",
+    artist: "Annahstasia",
+    year: 2025,
+    image: "images/tether.jpg"
+  },
   {
     id: "double-infinity",
     title: "Double Infinity",
     artist: "Big Thief",
-    year: 2025
+    year: 2025,
+    image: "images/double-infinity.jpg"
   },
   {
     id: "afterglow",
     title: "Afterglow",
     artist: "FKA twigs",
-    year: 2025
+    year: 2025,
+    image: "images/afterglow.jpg"
   },
   {
     id: "a-complicated-woman",
     title: "A Complicated Woman",
     artist: "Self Esteem",
-    year: 2025
+    year: 2025,
+    image: "images/a-complicated-woman.jpg"
   },
   {
     id: "i-love-my-computer",
     title: "I Love My Computer",
     artist: "Ninajirachi",
-    year: 2025
-  },
-  {
-    id: "something-beautiful",
-    title: "Something Beautiful",
-    artist: "Miley Cyrus",
-    year: 2025
-  },
-  {
-    id: "viagr-aboys",
-    title: "Viagr Aboys",
-    artist: "Viagra Boys",
-    year: 2025
-  },
-  {
-    id: "from-the-pyre",
-    title: "From The Pyre",
-    artist: "The last dinner party",
-    year: 2025
-  },
-  {
-    id: "snocaps",
-    title: "Snocaps",
-    artist: "Snocaps",
-    year: 2025
-  },
-  {
-    id: "getting-killed",
-    title: "Getting Killed",
-    artist: "Geese",
-    year: 2025
-  },
-  {
-    id: "caroline-2",
-    title: "Caroline 2",
-    artist: "Caroline",
-    year: 2025
-  },
-  {
-    id: "everybody-scream",
-    title: "Everybody Scream",
-    artist: "Florence + The Machine",
-    year: 2025
-  },
-  {
-    id: "the-bpm",
-    title: "The BPM",
-    artist: "Sudan Archives",
-    year: 2025
-  },
-  {
-    id: "luster",
-    title: "Luster",
-    artist: "Maria Sommerville",
-    year: 2025
+    year: 2025,
+    image: "images/i-love-my-computer.jpg"
   },
   {
     id: "bloodless",
     title: "Bloodless",
     artist: "Samia",
-    year: 2025
+    year: 2025,
+    image: "images/bloodless.jpg"
   },
   {
-    id: "through-the-wall",
-    title: "Through The Wall",
-    artist: "Rochelle Jordans",
-    year: 2025
+    id: "viagr-aboys",
+    title: "Viagr Aboys",
+    artist: "Viagra Boys",
+    year: 2025,
+    image: "images/viagr-aboys.jpg"
+  },
+  {
+    id: "who-s-the-clown",
+    title: "Who’s The Clown",
+    artist: "Audrey Hobert",
+    year: 2025,
+    image: "images/who-s-the-clown.jpg"
+  },
+  {
+    id: "something-beautiful",
+    title: "Something Beautiful",
+    artist: "MIley Cyrus",
+    year: 2025,
+    image: "images/something-beautiful.jpg"
+  },
+  {
+    id: "stage-girl",
+    title: "Stage Girl",
+    artist: "Eli",
+    year: 2025,
+    image: "images/stage-girl.jpg"
   },
   {
     id: "forever-is-a-feeling",
     title: "Forever is a Feeling",
     artist: "Lucy Dacus",
-    year: 2025
+    year: 2025,
+    image: "images/forever-is-a-feeling.jpg"
+  },
+  {
+    id: "luster",
+    title: "Luster",
+    artist: "Maria Somerville",
+    year: 2025,
+    image: "images/luster.jpg"
+  },
+  {
+    id: "getting-killed",
+    title: "Getting Killed",
+    artist: "Geese",
+    year: 2025,
+    image: "images/getting-killed.jpg"
+  },
+  {
+    id: "caroline-2",
+    title: "Caroline 2",
+    artist: "Caroline",
+    year: 2025,
+    image: "images/caroline-2.jpg"
+  },
+  {
+    id: "everybody-scream",
+    title: "Everybody Scream",
+    artist: "Florence+ the machine",
+    year: 2025,
+    image: "images/everybody-scream.jpg"
+  },
+  {
+    id: "the-bpm",
+    title: "The BPM",
+    artist: "Sudan Archives",
+    year: 2025,
+    image: "images/the-bpm.jpg"
+  },
+  {
+    id: "through-the-wall",
+    title: "Through The Wall",
+    artist: "Rochelle Jordan",
+    year: 2025,
+    image: "images/through-the-wall.jpg"
+  },
+  {
+    id: "bleeds",
+    title: "Bleeds",
+    artist: "Wednesday",
+    year: 2025,
+    image: "images/bleeds.jpg"
   },
   {
     id: "essex-honey",
     title: "Essex Honey",
     artist: "Blood Orange",
-    year: 2025
+    year: 2025,
+    image: "images/essex-honey.jpg"
   },
   {
     id: "lifetime",
     title: "Lifetime",
     artist: "Erika de Casier",
-    year: 2025
-  },
-  {
-    id: "whos-the-clown",
-    title: "Who’s The Clown",
-    artist: "Aubrey Hobert",
-    year: 2025
-  },
-  {
-    id: "tranquilizer",
-    title: "Tranquilizer",
-    artist: "Oneohtrix Point Never",
-    year: 2025
+    year: 2025,
+    image: "images/lifetime.jpg"
   }
 ];
+
+// Automatically attach local cover images based on each album's id.
+// Make sure you have files like /images/<id>.jpg as listed above.
+defaultAlbums.forEach(album => {
+  album.cover = `images/${album.id}.jpg`;
+});
+
 
 
 // -------- Storage keys --------

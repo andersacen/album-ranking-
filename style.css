@@ -8,7 +8,7 @@
   --bg: #080810;
   --bg-elevated: #141420;
   --bg-elevated-soft: #181828;
-  --accent: #01b185;
+  --accent: #f5ff67;
   --accent-soft: rgba(255, 95, 209, 0.2);
   --text: #f5f5f5;
   --text-muted: #a3a3b8;
@@ -251,7 +251,7 @@ button:hover {
 .icon-button:hover {
   border-color: rgba(178, 178, 178, 0.7);
   background: rgba(255, 80, 80, 0.08);
-  color: #1f7c52;
+  color: #cced47;
 }
 
 .handle {

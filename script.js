@@ -925,14 +925,14 @@ new Sortable(listEl, {
   delayOnTouchOnly: true,   // only on touch, not on mouse
   touchStartThreshold: 5,   // allow a few px movement before dragging
 
-  // Make fallback dragging smoother on some mobile browsers
+  // 🔑 Force JS fallback so iOS doesn't show its own drag screenshot
+  forceFallback: true,
   fallbackOnBody: true,
   swapThreshold: 0.5,
 
-  // NOTE: we are NOT setting ghostClass/chosenClass/dragClass here.
-  // We just use Sortable's built-in classes:
+  // We use Sortable's built-in classes:
   //  - .sortable-chosen  (real item)
-  //  - .sortable-ghost   (clone)
+  //  - .sortable-ghost   (clone placeholder)
 
   onStart() {
     document.body.classList.add("is-dragging");
@@ -944,6 +944,8 @@ new Sortable(listEl, {
     autosaveCurrentList();
   }
 });
+
+
 
 
 

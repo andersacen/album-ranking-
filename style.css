@@ -271,7 +271,7 @@ button:hover {
 .save-panel .saved-lists {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;        /* pill / rounded – match your style */
-  border: 1px solid #e8ff8b;      /* adjust to match your buttons */
+  border: 1px solid #ff8b8b;      /* adjust to match your buttons */
   background: #202030;         /* adjust */
   font-size: 0.9rem;
   font-family: inherit;

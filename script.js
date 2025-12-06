@@ -12,13 +12,13 @@ const defaultAlbums = [
   {
     id: "lux",
     title: "LUX",
-    artist: "Rosalía",
+    artist: "ROSALÍA",
     year: 2025,
     image: "images/lux.jpg"
   },
   {
     id: "mayhem",
-    title: "Mayhem",
+    title: "MAYHEM",
     artist: "Lady Gaga",
     year: 2025,
     image: "images/mayhem.jpg"
@@ -53,14 +53,14 @@ const defaultAlbums = [
   },
   {
     id: "moisturizer",
-    title: "Moisturizer",
+    title: "moisturizer",
     artist: "Wet Leg",
     year: 2025,
     image: "images/moisturizer.jpg"
   },
   {
     id: "sable-fable",
-    title: "Sable, Fable",
+    title: "SABLE, fABLE",
     artist: "Bon Iver",
     year: 2025,
     image: "images/sable-fable.jpg"
@@ -74,14 +74,14 @@ const defaultAlbums = [
   },
   {
     id: "choke-enough",
-    title: "Choke Enough",
+    title: "choke enough",
     artist: "Oklou",
     year: 2025,
     image: "images/choke-enough.jpg"
   },
   {
     id: "euro-country",
-    title: "Euro-Country",
+    title: "EURO-COUNTRY",
     artist: "CMAT",
     year: 2025,
     image: "images/euro-country.jpg"
@@ -116,7 +116,7 @@ const defaultAlbums = [
   },
   {
     id: "never-enough",
-    title: "Never Enough",
+    title: "NEVER ENOUGH",
     artist: "Turnstile",
     year: 2025,
     image: "images/never-enough.jpg"
@@ -144,7 +144,7 @@ const defaultAlbums = [
   },
   {
     id: "i-quit",
-    title: "I Quit",
+    title: "I quit",
     artist: "HAIM",
     year: 2025,
     image: "images/i-quit.jpg"
@@ -186,7 +186,7 @@ const defaultAlbums = [
   },
   {
     id: "debi-tirar-mas-fotos",
-    title: "Debi Tirar Mas Fotos",
+    title: "DeBÍ TiRAR MáS FOToS",
     artist: "Bad Bunny",
     year: 2025,
     image: "images/debi-tirar-mas-fotos.jpg"
@@ -263,7 +263,7 @@ const defaultAlbums = [
   },
   {
     id: "viagr-aboys",
-    title: "Viagr Aboys",
+    title: "viagr aboys",
     artist: "Viagra Boys",
     year: 2025,
     image: "images/viagr-aboys.jpg"
@@ -291,7 +291,7 @@ const defaultAlbums = [
   },
   {
     id: "forever-is-a-feeling",
-    title: "Forever is a Feeling",
+    title: "Forever Is A Feeling",
     artist: "Lucy Dacus",
     year: 2025,
     image: "images/forever-is-a-feeling.jpg"
@@ -312,8 +312,8 @@ const defaultAlbums = [
   },
   {
     id: "caroline-2",
-    title: "Caroline 2",
-    artist: "Caroline",
+    title: "caroline 2",
+    artist: "caroline",
     year: 2025,
     image: "images/caroline-2.jpg"
   },
@@ -885,12 +885,16 @@ if (newListBtn)
     if (name === null) return;
     name = name.trim();
 
-    render([]);
-    localStorage.setItem(STORAGE_KEY_ORDER, JSON.stringify([]));
+    // 👉 Start every new list with ALL albums in default order
+    const order = albums.map(a => a.id);
+
+    // Render the full list and save this order as the current one
+    render(order);
+    localStorage.setItem(STORAGE_KEY_ORDER, JSON.stringify(order));
 
     if (name) {
       const lists = loadSavedListsFromStorage();
-      const newList = { id: String(Date.now()), name, order: [] };
+      const newList = { id: String(Date.now()), name, order };
       lists.push(newList);
       saveSavedListsToStorage(lists);
 
@@ -904,6 +908,7 @@ if (newListBtn)
     updateCurrentListNameDisplay();
     refreshSavedListsDropdown();
   });
+
 
 
 // -------- Init --------

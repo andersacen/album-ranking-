@@ -1,11 +1,12 @@
 // ---------- Firebase imports ----------
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import {
   getFirestore,
   doc,
   getDoc,
   setDoc
-} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
 
 // ---------- Your Firebase config (from Firebase console) ----------
 const firebaseConfig = {
@@ -376,11 +377,11 @@ const defaultAlbums = [
     image: "images/bleeds.jpg"
   },
   {
-    id: "essex-honey",
-    title: "Essex Honey",
-    artist: "Blood Orange",
+    id: "lotus",
+    title: "Lotus",
+    artist: "Little Simz",
     year: 2025,
-    image: "images/essex-honey.jpg"
+    image: "images/lotus.jpg"
   },
   {
     id: "lifetime",
@@ -388,6 +389,13 @@ const defaultAlbums = [
     artist: "Erika de Casier",
     year: 2025,
     image: "images/lifetime.jpg"
+  },
+  {
+   id: "midnight-sun",
+    title: "Midnight Sun",
+    artist: "Zara Larsson",
+    year: 2025,
+    image: "images/midnight-sun.jpg"
   }
 ];
 
